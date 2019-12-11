@@ -21,13 +21,13 @@ export default class SignIn extends Component {
     async handleSubmit(event) {
         event.preventDefault();
 
-        const { email, password } = this.state;        
+        const { email, password } = this.state;
         await this.props.authenticate(email, password);
 
         this.props.redirect('/apps');
     }
 
-    render () {        
+    render () {
         return (
             <form id="sign-in" onSubmit={this.handleSubmit}>
                 <input onChange={this.handleChange} placeholder="Email address" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
