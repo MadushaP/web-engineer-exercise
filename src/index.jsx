@@ -16,10 +16,9 @@ const store = createStore(
     applyMiddleware(thunk)
 );
 const PrivateRoute = ({ component, ...options }) => {
-    //Need to change on token / login status
-    const { authenticated }  = false;
+    let authenticated   = false;
 
-    const finalComponent = authenticated ? component : Apps;
+    let finalComponent = authenticated ? component : SignIn;
 
     return <Route {...options} component={finalComponent} />;
 };
@@ -32,6 +31,7 @@ ReactDOM.render(
                 <PrivateRoute exact path="/apps" component={Apps} />
                 <PrivateRoute path="/apps/:id" component={Users} />
                 <Route exact path="/*" component={SignIn} />
+
             </Switch>
         </Router>
     </Provider>,
