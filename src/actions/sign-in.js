@@ -32,13 +32,14 @@ export async function isValidToken() {
     const validTokenRequest = await fetch('https://guarded-thicket-22918.herokuapp.com/', {
         headers: { 'Authorization': token }
     });
-    const { error } = await response.json();
+
+    const { error } = await validTokenRequest.json()
 
     return !error;
 }
 
 export function authenticate (email, password) {
-    return async function (dispatch) {    
+    return async function (dispatch) {
         dispatch(authenticationRequesting());
         const response = await fetch('https://guarded-thicket-22918.herokuapp.com/login', {
             method: 'post',

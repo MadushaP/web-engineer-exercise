@@ -1,16 +1,12 @@
 import React from 'react';
-import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Link, Route, Switch, withRouter} from 'react-router-dom'
 import SignIn from "../containers/sign-in.jsx"
 import Apps from "../containers/apps.jsx"
 import Users from "../containers/users.jsx"
+import {isValidToken} from "../actions/sign-in"
+import {connect} from "react-redux"
 
-const PrivateRoute = ({ component, ...options }) => {
-    let authenticated   = false;
-
-    let finalComponent = authenticated ? component : SignIn;
-
-    return <Route {...options} component={finalComponent} />;
-};
+import PrivateRoute from "./privateRoute.jsx"
 
 export default function App() {
     return (

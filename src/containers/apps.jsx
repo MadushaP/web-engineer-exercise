@@ -7,7 +7,7 @@ import Apps from '../components/apps.jsx';
 
 function mapStateToProps(state) {
     const { items, error } = state.apps;
-    
+
     return { error, items };
 }
 
