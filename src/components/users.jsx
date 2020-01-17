@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 
 function buildPagination(id, page = 0) {
     return (
-        <ul class="nav">
+        <ul className="nav">
             <li><Link to={`/apps/${id}/${page}`}>Previous</Link></li>
             <li><Link to={`/apps/${id}/${page}`}>Next</Link></li>
         </ul>
     );
-} 
+}
 
 export default function Users({
     error,

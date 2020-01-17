@@ -9,12 +9,11 @@ export default function PrivateRoute({props, component, ...options}) {
     const [validToken, checkToken] = useState(false)
 
     isValidToken().then(result => {
-        console.log(result)
         checkToken(result)
     })
 
     return (
        validToken ?  <Route {...options} component={component}/> : <Route {...options} component={SignIn}/>
     )
-    
+
 }

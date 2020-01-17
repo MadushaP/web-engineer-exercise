@@ -7,7 +7,8 @@ import './styles/apps.css';
 export default function Apps({
     error,
     items,
-    fetchApps
+    fetchApps,
+    updateApp
 }) {
     if (!items || !items.length) {
         fetchApps();
@@ -16,16 +17,16 @@ export default function Apps({
 
     return (
         <ul id="apps">
-            {items.map(({ id, name, logo }) => {
+            {items.map(({ id, name, logo }, index) => {
                 return (
-                    <div>
-                    <li class="app">
+                    <div key={index}>
+                    <li className="app">
                         <Link to={`/apps/${id}`}>
                             <p>{name}</p>
                             <img src={logo} alt={name} width="100" height="100"/>
                         </Link>
                     </li>
-                        <Button id="button" variant="primary">Edit</Button>
+                        <Button id="button" variant="primary" onClick={() => updateApp(index, "MADUSHA")}>Edit</Button>
                     </div>
                 );
             })}

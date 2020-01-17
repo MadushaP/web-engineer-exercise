@@ -7,7 +7,7 @@
     "test": "mocha --recursive --timeout 20000",
     "build": "webpack",
     "prestart": "npm run build",
-    "start": "webpack-dev-server --open --hot"
+    "start": "webpack-dev-server --open --hot --mode development"
   },
   "author": "",
   "license": "ISC",
