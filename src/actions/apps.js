@@ -17,13 +17,13 @@ function appsError() {
     return { type: APPS_ERROR };
 }
 
-function appsUpdateApp(index,value){
-    return { type: APPS_UPDATE_ITEM, index, value };
+function appsUpdateApp(index, name, appLogo){
+    return { type: APPS_UPDATE_ITEM, index, name, appLogo };
 }
 
-export function updateApp(index, value) {
+export function updateApp(index, name, appLogo) {
     return async function (dispatch) {
-        dispatch(appsUpdateApp(index,value));
+        dispatch(appsUpdateApp(index,name, appLogo));
     }
 }
 

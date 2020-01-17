@@ -27,23 +27,27 @@ export default function Apps({
         fetchApps();
         return (<div>LOADING APPS...</div>);
     }
-    console.log(items)
 
     const [modalIsOpen,setIsOpen] = React.useState(false);
     const [appIndex,setAppIndex] = React.useState(0);
+    const [appName, setName] = React.useState("");
+    const [appLogo, setLogo] = React.useState("");
 
 
-    function openModal(index) {
-        setAppIndex(index)
+    function openModal(index, name, logo) {
+        setAppIndex(index);
+        setName(name);
+        setLogo(logo);
+
         setIsOpen(true);
     }
 
-    function afterOpenModal() {
-        // references are now sync'd and can be accessed.
-        // subtitle.style.color = '#f00';
+    function closeModal(){
+        setIsOpen(false);
     }
 
-    function closeModal(){
+    function submitModal() {
+        updateApp(appIndex, appName, appLogo)
         setIsOpen(false);
     }
 
@@ -58,29 +62,28 @@ export default function Apps({
                             <img src={logo} alt={name} width="100" height="100"/>
                         </Link>
                     </li>
-                        <Button id="button" variant="primary" onClick={() => openModal(index)}>Edit</Button>
+                        <Button id="button" variant="primary" onClick={() => openModal(index, name, logo)}>Edit</Button>
                     </div>
                 );
             })}
             <Modal ariaHideApp={false}
                 isOpen={modalIsOpen}
-                onAfterOpen={afterOpenModal}
                 onRequestClose={closeModal}
                 style={customStyles}
                 contentLabel="Example Modal">
                 <h2>Edit Page</h2>
                 <form>
                     <label>
-                       App Name:
-                        <input style={{'width': '100%'}}type="text" name="name" value={items[appIndex].name} />
+                       App Name
+                        <input onChange={e => setName(e.target.value)} style={{'width': '100%'}}type="text" name="name" defaultValue={items[appIndex].name} />
                     </label>
                     <label>
-                        Logo:
-                        <input style={{'width': '150%'}}type="text" name="name" value={items[appIndex].logo} />
+                        Logo
+                        <input onChange={e => setLogo(e.target.value)} style={{'width': '150%'}}type="text" name="name" defaultValue={items[appIndex].logo} />
                     </label>
                 </form>
                 <button onClick={closeModal}>Close</button>
-                <button onClick={closeModal}>Submit</button>
+                <button onClick={submitModal}>Submit</button>
             </Modal>
         </ul>
     );

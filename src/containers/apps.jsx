@@ -13,7 +13,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch, props) {
     return {
         fetchApps: () => dispatch(fetchApps()),
-        updateApp: (id, value) => dispatch(updateApp(id, value))
+        updateApp: (id, name, appLogo) => dispatch(updateApp(id, name, appLogo))
     }
 }
 

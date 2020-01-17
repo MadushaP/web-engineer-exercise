@@ -12,13 +12,13 @@ const initialState = {
 };
 
 export default function apps (state = initialState, action) {
-    const { type, payload, index, value } = action;
-
+    const { type, payload, index, name, appLogo } = action;
+console.log(state)
     switch (type) {
         case APPS_UPDATE_ITEM:
             return { ...state,
                     items: state.items.map((item, i) =>
-                        i === index ? {...item, name: value} : item
+                        i === index ? {...item, name: name, logo:appLogo} : item
                     )};
         case APPS_REQUEST:
             return Object.assign({}, state, { requesting: true });
