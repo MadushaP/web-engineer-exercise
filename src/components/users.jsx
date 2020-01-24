@@ -1,33 +1,70 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 
-function buildPagination(id, page = 0) {
-    return (
-        <ul className="nav">
-            <li><Link to={`/apps/${id}/${page}`}>Previous</Link></li>
-            <li><Link to={`/apps/${id}/${page}`}>Next</Link></li>
-        </ul>
-    );
-}
 
 export default function Users({
     error,
     items,
     fetchUsers,
-    appId
+    appId,
+    history
 }) {
     if (!items || !items.length) {
         fetchUsers();
         return (<div>LOADING USERS...</div>);
     }
 
+    function buildPagination(id) {
+        return (
+            <ul className="nav">
+                <li><Link  onClick={back} to={`/apps/${id}/${currentPage}`}>Previous</Link></li>
+                <li><Link  onClick={next} to={`/apps/${id}/${currentPage}`}>Next</Link></li>
+            </ul>
+        );
+    }
+
+    function next() {
+        if (currentPage > (items.length / pageSize) - 1)
+         return;
+        else {
+            let nextPage =  (currentPage + 1)
+            let lastIndex = pageSize * nextPage;
+
+            setCurrentPage(nextPage);
+            setindexOfLastUsr(lastIndex);
+            setindexOfFirstUsr(lastIndex - pageSize);
+
+            console.log(indexOfFirstUsr,indexOfLastUsr, items.slice(indexOfFirstUsr,indexOfLastUsr));
+
+            pageItems = items.slice(indexOfFirstUsr,indexOfLastUsr);
+        }
+    }
+
+    function back() {
+        if(currentPage <= 1)
+            return;
+        else {
+            setCurrentPage(currentPage - 1);
+        }
+    }
+
+
+    const [pageSize,setPageSize] = useState(5);
+    const [currentPage,setCurrentPage] = useState(1);
+    const [indexOfFirstUsr,setindexOfFirstUsr] = useState(0);
+    const [indexOfLastUsr,setindexOfLastUsr] = useState(pageSize);
+
+
+    //Page 1 initial load
+    let pageItems = items.slice(indexOfFirstUsr,indexOfLastUsr);
+
     return (
         <div id="users">
             {buildPagination(appId)}
             <ul>
-                {items.map(({ id, name, email, avatar }) => {
+                {pageItems.map(({ id, name, email, avatar }) => {
                     return (
-                        <li>
+                        <li  key={id}>
                             <p>Name: {name}</p>
                             <p>Email: <a href={`mailto:${email}`}>{email}</a></p>
                             <img src={avatar} alt={name} width="50" height="50"/>
@@ -35,7 +72,7 @@ export default function Users({
                     );
                 })}
             </ul>
-            {buildPagination(appId)}
+            {buildPagination(appId, currentPage)}
         </div>
     );
 }
