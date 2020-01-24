@@ -82,8 +82,8 @@ export default function Apps({
                         <input onChange={e => setLogo(e.target.value)} style={{'width': '150%'}}type="text" name="name" defaultValue={items[appIndex].logo} />
                     </label>
                 </form>
-                <button onClick={closeModal}>Close</button>
-                <button onClick={submitModal}>Submit</button>
+                <Button id="close" variant="danger" onClick={closeModal}>Close</Button>
+                <Button id="submit" variant="success" onClick={submitModal}>Submit</Button>
             </Modal>
         </ul>
     );

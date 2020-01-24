@@ -18,7 +18,7 @@ describe.only('/apps', () => {
         const { page, browser } = await setupPage('/');
         const signin = signinObject(page);
         const apps = appsObject(page);
-        
+
         await signin.enterUserName('foo@bar.com');
         await signin.enterPassword('hunter2');
         await signin.clickSubmit();
@@ -30,4 +30,5 @@ describe.only('/apps', () => {
     });
 
     it('updates the app information when the user changes them');
+    //
 });
