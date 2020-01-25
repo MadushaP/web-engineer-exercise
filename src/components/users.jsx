@@ -17,8 +17,8 @@ export default function Users({
     function buildPagination(id) {
         return (
             <ul className="nav">
-                <li><Link  onClick={back} to={`/apps/${id}/${currentPage}`}>Previous</Link></li>
-                <li><Link  onClick={next} to={`/apps/${id}/${currentPage}`}>Next</Link></li>
+                <li><Link  onClick={back} to={`/apps/${id}/${currentPage }`}>Previous</Link></li>
+                <li><Link  onClick={next} to={`/apps/${id}/${currentPage }`}>Next</Link></li>
             </ul>
         );
     }
@@ -29,14 +29,12 @@ export default function Users({
         else {
             let nextPage =  (currentPage + 1)
             let lastIndex = pageSize * nextPage;
+            let firstIndex = lastIndex - pageSize;
 
             setCurrentPage(nextPage);
-            setindexOfLastUsr(lastIndex);
-            setindexOfFirstUsr(lastIndex - pageSize);
 
-            console.log(indexOfFirstUsr,indexOfLastUsr, items.slice(indexOfFirstUsr,indexOfLastUsr));
+            setPageItems(items.slice(firstIndex,lastIndex));
 
-            pageItems = items.slice(indexOfFirstUsr,indexOfLastUsr);
         }
     }
 
@@ -44,19 +42,22 @@ export default function Users({
         if(currentPage <= 1)
             return;
         else {
-            setCurrentPage(currentPage - 1);
+
+            let nextPage =  (currentPage - 1);
+            let lastIndex = pageSize * nextPage;
+            let firstIndex = lastIndex - pageSize;
+
+            setCurrentPage(nextPage);
+
+            setPageItems(items.slice(firstIndex,lastIndex));
         }
     }
 
 
     const [pageSize,setPageSize] = useState(5);
     const [currentPage,setCurrentPage] = useState(1);
-    const [indexOfFirstUsr,setindexOfFirstUsr] = useState(0);
-    const [indexOfLastUsr,setindexOfLastUsr] = useState(pageSize);
 
-
-    //Page 1 initial load
-    let pageItems = items.slice(indexOfFirstUsr,indexOfLastUsr);
+    const [pageItems,setPageItems] = useState(items.slice(0,5));
 
     return (
         <div id="users">
